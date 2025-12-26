@@ -1,17 +1,20 @@
 // ================================
-// MÚSICA DE FUNDO
+// MÚSICA DE FUNDO AUTOMÁTICA
 // ================================
 
-const musica = document.getElementById("bgMusic");
+const bgMusic = document.getElementById("bgMusic");
 
-// tentar tocar automaticamente
+// Autoplay (respeitando bloqueio do navegador)
 window.addEventListener("load", () => {
-  musica.volume = 0.4;
-  musica.play().catch(() => {
-    // autoplay pode ser bloqueado, então toca após interação
-    document.body.addEventListener("click", () => {
-      musica.play();
-    }, { once: true });
+  bgMusic.volume = 0.4;
+  bgMusic.play().catch(() => {
+    document.body.addEventListener(
+      "click",
+      () => {
+        bgMusic.play();
+      },
+      { once: true }
+    );
   });
 });
 
@@ -25,12 +28,12 @@ const video = document.getElementById("video");
 
 // Abrir vídeo
 assistirBtn.addEventListener("click", () => {
-  musica.pause(); // para música
+  bgMusic.pause();
+
   videoContainer.style.display = "flex";
   video.currentTime = 0;
   video.play();
 
-  // Tela cheia
   if (video.requestFullscreen) {
     video.requestFullscreen();
   } else if (video.webkitRequestFullscreen) {
@@ -38,31 +41,30 @@ assistirBtn.addEventListener("click", () => {
   }
 });
 
-// Função fechar vídeo
+// Fechar vídeo
 function fecharVideo() {
   video.pause();
   video.currentTime = 0;
   videoContainer.style.display = "none";
 
-  // volta música
-  musica.play().catch(() => {});
+  bgMusic.play().catch(() => {});
 }
 
-// Quando o vídeo terminar
+// Ao terminar o vídeo
 video.addEventListener("ended", fecharVideo);
 
-// Quando sair do fullscreen
+// Ao sair do fullscreen
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     fecharVideo();
   }
 });
 
-// Quando trocar de aba
+// Ao trocar de aba
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
-    musica.pause();
+    bgMusic.pause();
   } else {
-    musica.play().catch(() => {});
+    bgMusic.play().catch(() => {});
   }
 });
