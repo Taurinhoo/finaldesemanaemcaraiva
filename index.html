@@ -2,26 +2,112 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>(a)mar é uma dádiva</title>
+  <title>T.E (a)mar é uma dádiva</title>
 
-  <!-- RESPONSIVO -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- FONTE -->
+  <!-- Fonte -->
   <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #141414;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .intro {
+      height: 100vh;
+      background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.3)),
+        url("momento1.jpg") center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .intro-title {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .intro-subtitle {
+      max-width: 600px;
+      margin: 20px 0;
+      color: #b3b3b3;
+      font-size: 1.2rem;
+    }
+
+    .btn-principal {
+      width: 220px;
+      padding: 14px;
+      background: #e50914;
+      color: #fff;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .sinopse {
+      padding: 60px;
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    .galeria {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 20px;
+    }
+
+    .galeria img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    #videoContainer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #video {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    @media (max-width: 768px) {
+      .intro {
+        padding: 30px;
+      }
+      .intro-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- INTRO / BANNER -->
+  <!-- MÚSICA DE FUNDO -->
+  <audio id="bgMusic" loop>
+    <source src="mulher-secreta.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- INTRO -->
   <section class="intro">
-    <h1 class="intro-title">(a)mar é uma dádiva</h1>
+    <h1 class="intro-title">T.E (a)mar é uma dádiva</h1>
 
     <p class="intro-subtitle">
-      Uma história vivida entre risos, cuidado e um amor verdadeiro.
+      Uma história construída em cuidado, amor e pequenos momentos que valem tudo.
     </p>
 
     <button id="assistirBtn" class="btn-principal">
@@ -33,44 +119,82 @@
   <section class="sinopse">
     <h2>Sinopse</h2>
     <p>
-      Sabe um segredo que não é mais segredo?  
-      O tanto que tenho medo de acordar e não te ter mais em minha vida me assusta.
-      É como se fosse uma paralisia do sono onde meu maior pesadelo é te ver partir
-      e eu não poder fazer absolutamente nada. Freddy Krueger nunca foi tão pequeno kkkk.
+      Sabe um segredo que não é mais segredo? O tanto que tenho medo de acordar
+      e não te ter mais em minha vida me assusta. É como se fosse uma paralisia
+      do sono onde meu maior pesadelo é te ver partir e eu não poder fazer nada.
+      Freddy Krueger nunca foi tão pequeno kkkk.
       <br><br>
-      O que seria uma dádiva? Em termos técnicos, dádiva significa um presente,
-      um dom natural. Mas pra mim, dádiva é poder ser cuidado por você, ser amado
-      por você, ouvir quando me chama atenção por eu esquecer de avisar que saí,
-      ou chorar de felicidade ao te ver.
+      Dádiva é poder ser cuidado por você, ser amado por você, ouvir quando me
+      chama atenção por eu esquecer de avisar quando saio, ou chorar de felicidade
+      ao te ver.
       <br><br>
-      Dádiva é viver ao seu lado, te tocar, te sentir e te amar que nem louco.
+      Dádiva é poder viver ao seu lado, te tocar, te sentir e te amar que nem louco.
       Disso eu entendo bem. Te amo, tá?!
     </p>
   </section>
 
   <!-- GALERIA -->
   <section class="galeria">
-    <img src="momento1.jpg" alt="Momento especial 1">
-    <img src="momento2.png" alt="Momento especial 2">
-    <img src="momento3.png" alt="Momento especial 3">
-
-    <img src="IMG_1598.jpg" alt="Momento especial 4">
-    <img src="IMG_1601.jpg" alt="Momento especial 5">
-    <img src="IMG_1602.jpg" alt="Momento especial 6">
+    <img src="momento1.jpg">
+    <img src="momento2.png">
+    <img src="momento3.png">
+    <img src="IMG_1598.jpg">
+    <img src="IMG_1601.jpg">
+    <img src="IMG_1602.jpg">
   </section>
 
-  <!-- PLAYER DE VÍDEO (OCULTO) -->
+  <!-- VÍDEO -->
   <div id="videoContainer">
     <video id="video" playsinline>
       <source src="video.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo.
     </video>
   </div>
 
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
+  <script>
+    const bgMusic = document.getElementById("bgMusic");
+    const assistirBtn = document.getElementById("assistirBtn");
+    const videoContainer = document.getElementById("videoContainer");
+    const video = document.getElementById("video");
+
+    window.addEventListener("load", () => {
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(() => {
+        document.body.addEventListener("click", () => {
+          bgMusic.play();
+        }, { once: true });
+      });
+    });
+
+    assistirBtn.addEventListener("click", () => {
+      bgMusic.pause();
+      videoContainer.style.display = "flex";
+      video.currentTime = 0;
+      video.play();
+
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      }
+    });
+
+    function fecharVideo() {
+      video.pause();
+      video.currentTime = 0;
+      videoContainer.style.display = "none";
+      bgMusic.play().catch(() => {});
+    }
+
+    video.addEventListener("ended", fecharVideo);
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) fecharVideo();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) bgMusic.pause();
+    });
+  </script>
 
 </body>
 </html>
-
-
