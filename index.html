@@ -2,176 +2,51 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>T.E (a)mar é uma dádiva</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #141414;
-  color: white;
-}
-
-header {
-  background: url('IMG_2893.png') center/cover no-repeat;
-  padding: 120px 40px;
-}
-
-h1 {
-  font-size: 48px;
-}
-
-button {
-  background: #e50914;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-section {
-  padding: 40px;
-}
-
-.momentos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-}
-
-.momentos-grid img {
-  width: 100%;
-  border-radius: 8px;
-  transition: transform .3s;
-}
-
-.momentos-grid img:hover {
-  transform: scale(1.1);
-}
-
-/* AUDIO */
-audio {
-  display: none;
-}
-
-/* VIDEO FULLSCREEN */
-.video-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.video-container {
-  width: 100%;
-  height: 100%;
-}
-
-.video-container video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.close-video {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 32px;
-  cursor: pointer;
-  z-index: 10000;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso Filme</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- MÚSICA DE FUNDO -->
+<!-- INTRO -->
+<div id="intro">
+  <h1>Nosso Filme</h1>
+</div>
+
+<!-- MÚSICA -->
 <audio id="bgMusic" loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<header>
-  <h1>T.E (a)mar é uma dádiva</h1>
-  <p>Thalysson Taurinho & Evellyn Santana — 20/04/2025</p>
-  <button onclick="startExperience()">▶ Assistir</button>
-</header>
+<button id="musicBtn">🎵 Música</button>
 
-<section>
+<!-- CINEMA -->
+<section class="cinema">
   <h2>Sinopse</h2>
-  <p>
-    sabe um segredo que não é mais segredo? o tanto que tenho medo de acordar e não te ter mais em minha vida me assusta.
-    É como se fosse uma paralisia do sono onde meu maior pesadelo é ter que te ver partir e eu não puder fazer nada.
-    Freddy Krueger nunca foi tão pequeno kkkk. O que seria uma dádiva? em termos técnicos "Dádiva significa um presente, 
-    uma oferta voluntaria, um dom natural..." mas digamos que pra mim, dádiva, é poder ser cuidado por você, ser amado por
-    você, poder escutar o quao displicente sou por esquecer de avisar ao sair kkkkk ou até mesmo quando choro de felicidade
-    ao te ver... Dádiva é poder viver ao seu lado, poder te tocar, te sentir e poder te amar que nem louco. E disso eu entendo
-    bem! te amo, tá?!
+  <p class="sinopse">
+    Uma história simples, real e cheia de carinho,
+    registrada em momentos que se tornaram eternos.
   </p>
-</section>
 
-<section>
-  <h2>Momentos</h2>
-  <div class="momentos-grid">
-    <img src="IMG_1601.jpg">
-    <img src="IMG_1602.jpg">
-    <img src="IMG_1598.jpg">
-    <img src="IMG_2897.jpg">
-    <img src="IMG_2878.png">
-    <img src="IMG_2888.png">
-    <img src="momento1.png">
-    <img src="momento2.png">
-    <img src="momento3.png">
-  </div>
-</section>
+  <button id="assistirBtn">▶ Assistir</button>
 
-<!-- MODAL DO VÍDEO -->
-<div id="videoModal" class="video-modal">
-  <span class="close-video" onclick="closeVideo()">✕</span>
-  <div class="video-container">
-    <video id="videoPlayer" controls>
+  <div id="videoContainer">
+    <video id="video" controls>
       <source src="video.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo.
     </video>
   </div>
-</div>
+</section>
 
-<script>
-function startExperience() {
-  const music = document.getElementById("bgMusic");
-  const modal = document.getElementById("videoModal");
-  const video = document.getElementById("videoPlayer");
+<!-- GALERIA -->
+<section class="galeria">
+  <img src="momento1.jpg">
+  <img src="momento2.png">
+  <img src="momento3.png">
+  <img src="IMG_1598.jpg">
+  <img src="IMG_1601.jpg">
+  <img src="IMG_1602.jpg">
+</section>
 
-  // toca música (permitido por clique)
-  music.volume = 0.4;
-  music.play();
-
-  // abre vídeo
-  modal.style.display = "flex";
-  video.currentTime = 0;
-  video.play();
-
-  // fullscreen
-  if (video.requestFullscreen) {
-    video.requestFullscreen();
-  } else if (video.webkitRequestFullscreen) {
-    video.webkitRequestFullscreen();
-  }
-}
-
-function closeVideo() {
-  const modal = document.getElementById("videoModal");
-  const video = document.getElementById("videoPlayer");
-
-  modal.style.display = "none";
-  video.pause();
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
